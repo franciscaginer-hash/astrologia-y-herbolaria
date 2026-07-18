@@ -21,7 +21,7 @@ For the newsletter form to work locally, copy `.env.local.example` to `.env.loca
 
 ## Architecture
 
-- **App Router pages** live in `app/`: `page.tsx` (inicio), `servicios/page.tsx`, `sobre-mi/page.tsx`, `blog/page.tsx` (+ per-article routes), `privacidad/page.tsx`, and `layout.tsx` (shared shell: Header, Footer, fonts). Copy for each page lives directly in its `page.tsx` or in the `components/*.tsx` it uses.
+- **App Router pages** live in `app/`: `page.tsx` (inicio), `servicios/page.tsx`, `sobre-mi/page.tsx`, `blog/page.tsx` (+ per-article routes), `privacidad/page.tsx`, and `layout.tsx` (shared shell: Header, Footer, Newsletter, fonts). Copy for each page lives directly in its `page.tsx` or in the `components/*.tsx` it uses.
 - **Shared UI** lives in `components/` (Header, Footer, Newsletter, cards, buttons, etc.), all React/TSX.
 - **Single config file drives contact info site-wide.** [lib/site-config.ts](lib/site-config.ts) holds WhatsApp number, Instagram URL, and email — update it there and it propagates through header, footer, and "agendar hora" buttons automatically.
 - **Newsletter/astrology logic** is in `lib/`: `ephemeris.js` (sign calculations), `mailerlite.js` (API client), `utils.ts` (misc helpers). `data/ciudades-chile.json` powers the birth-city selector.
@@ -81,3 +81,20 @@ For full functionality, these MCP servers can be authenticated via claude.ai set
 ## Deployment
 
 Deployed on Vercel — project `astrologia-y-herbolaria1/astrologia-herbolaria`, linked to the `origin` remote (`github.com/franciscaginer-hash/astrologia-y-herbolaria`) for automatic deploys on push. Vercel auto-detects the Next.js framework (`npm run build`, static export + the `api/subscribe.js` serverless function) — no manual build config needed. Requires `MAILERLITE_API_KEY` (and optionally `MAILERLITE_GROUP_ID`) set in Vercel → Settings → Environment Variables for the newsletter to work in production. Live at https://astrologia-herbolaria.vercel.app. Cloudflare Pages / GitHub Pages are no longer the deploy target.
+
+## Vault de Obsidian
+
+Vault en `C:\Users\Fran\ObsidianVaults\astrologia-herbolaria`, con dos orígenes distintos:
+
+- `memoria-claude\` — Directory Junction (no copia) a `C:\Users\Fran\.claude\projects\C--Users-Fran-Code\memory\`, la memoria persistente de Claude Code. Editar notas ahí dentro o fuera del vault.
+- `grafo-proyecto\` — vault de graphify (`graphify export obsidian --dir <ruta>`) con una nota por nodo del grafo de este repo más notas `_COMMUNITY_*.md` por comunidad.
+
+`graphify hook install` ya deja un hook de post-commit que reconstruye `graphify-out/graph.json` en cada commit. Para volver a exportar ese grafo al vault y (si hay `GEMINI_API_KEY`/`GOOGLE_API_KEY`) enriquecerlo con summaries, correr:
+
+```
+scripts\sync-obsidian.ps1
+```
+
+Sin esa clave, el fold-back (vault → proyecto) se omite automáticamente; el script indica entonces correr `/graphify "<ruta-grafo-proyecto>"` dentro de Claude Code, que usa subagentes.
+
+Nota: el grafo actual (`graphify-out/`) fue construido antes de la migración a Next.js y describe la estructura HTML/CSS/JS vieja — hay que regenerarlo (`/graphify .`) contra el código actual para que refleje `app/`, `components/`, `lib/`, etc.
