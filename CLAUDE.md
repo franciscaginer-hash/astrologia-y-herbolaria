@@ -77,3 +77,20 @@ For full functionality, these MCP servers can be authenticated via claude.ai set
 ## Deployment
 
 Deployed on Vercel — project `astrologia-y-herbolaria1/astrologia-herbolaria`, linked to the `origin` remote (`github.com/franciscaginer-hash/astrologia-y-herbolaria`) for automatic deploys on push. No build command/framework preset needed (static site). Live at https://astrologia-herbolaria.vercel.app. Cloudflare Pages / GitHub Pages are no longer the deploy target.
+
+## Vault de Obsidian
+
+Vault en `C:\Users\Fran\ObsidianVaults\astrologia-herbolaria`, con dos orígenes distintos:
+
+- `memoria-claude\` — Directory Junction (no copia) a `C:\Users\Fran\.claude\projects\C--Users-Fran-Code\memory\`, la memoria persistente de Claude Code. Editar notas ahí dentro o fuera del vault es lo mismo archivo; no requiere sincronización.
+- `grafo-proyecto\` — vault de graphify (`graphify export obsidian --dir <ruta>`) con una nota por nodo del grafo de este repo más notas `_COMMUNITY_*.md` por comunidad.
+
+`graphify hook install` ya deja un hook de post-commit que reconstruye `graphify-out/graph.json` en cada commit. Para volver a exportar ese grafo al vault y (si hay `GEMINI_API_KEY`/`GOOGLE_API_KEY` configurada) fundir de vuelta notas que se hayan escrito a mano en `grafo-proyecto\`, correr:
+
+```
+scripts\sync-obsidian.ps1
+```
+
+Sin esa clave, el fold-back (vault → proyecto) se omite automáticamente; el script indica entonces correr `/graphify "<ruta-grafo-proyecto>"` dentro de Claude Code, que usa subagentes en vez de una API key.
+
+Nota: el grafo actual (`graphify-out/`) fue construido antes de la migración a Next.js y describe la estructura HTML/CSS/JS vieja — hay que regenerarlo (`/graphify .`) contra el código actual (`app/`, `components/`, `lib/`) para que vuelva a ser útil.
