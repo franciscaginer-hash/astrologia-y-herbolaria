@@ -4,25 +4,29 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-Static marketing site (HTML + CSS + vanilla JS, no framework, no build step, no package manager) for the brand "Astrología y Herbolaria" by Francisca Giner Mellado.
+Marketing site for the brand "Astrología y Herbolaria" by Francisca Giner Mellado, built with **Next.js 16 (App Router) + React 19 + Tailwind CSS 4**, using `shadcn`-based components. The site is statically exported (`output: "export"` in [next.config.ts](next.config.ts)) with one serverless function ([api/subscribe.js](api/subscribe.js)) for the newsletter signup.
+
+The newsletter ("El cielo del mes") is fully functional: it collects email, birth date/time/city, computes sun/moon/ascendant signs via [lib/ephemeris.js](lib/ephemeris.js), and subscribes the user through [lib/mailerlite.js](lib/mailerlite.js) → MailerLite.
 
 ## Running locally
 
-The site loads header/footer via `fetch`, so opening `index.html` directly (`file://`) will not work — a local server is required:
+```bash
+npm install
+npm run dev
+```
 
-- VS Code: right-click `index.html` → "Open with Live Server"
-- Terminal (needs Node.js): `npx serve`
+Open `http://localhost:3000`. Hot reload on save. `npm run build` produces the static export in `out/`. `npm run lint` runs ESLint.
 
-There is no build, lint, or test tooling in this repo.
+For the newsletter form to work locally, copy `.env.local.example` to `.env.local` and set `MAILERLITE_API_KEY` (and optionally `MAILERLITE_GROUP_ID`).
 
 ## Architecture
 
-- **Partial loading via fetch, not a templating engine.** [js/site.js](js/site.js) reads `data-partial="nombre"` attributes on `<div>` elements and fetches the matching file from `partials/` (e.g. `partials/header.html`) client-side, injecting it as innerHTML. Every page (root pages and `blog/*.html`) needs these mount divs to get header/footer/newsletter/CTA content.
-- **`{{BASE}}` path placeholder.** Root-level pages set `data-base="."` on `<html>`; pages under `blog/` set `data-base=".."`. `site.js` replaces `{{BASE}}` inside fetched partial HTML with this value so links/asset paths in partials resolve correctly regardless of directory depth. When adding a new page under a new subdirectory, set `data-base` accordingly.
-- **Single config file drives contact info site-wide.** [js/config.js](js/config.js) defines `window.SITE_CONFIG` (WhatsApp number, Instagram URL, email) — these are the 3 values marked `⚠️ PLACEHOLDER` that must be replaced with real data before launch. `site.js` wires this into any element with `data-wa-msg`, `data-config="instagram"`, or `data-config="email"` at runtime, so contact info never needs editing per-page.
-- **Content is separated from design/logic.** Editable copy lives only in the `.html` files (between tags) and in `partials/*.html`. `css/` and `js/site.js` should rarely need to change for content updates — `css/variables.css` centralizes the brand palette/typography as CSS custom properties (see the usage-proportion comments in that file: champán/rosa pálido ~70% backgrounds, ciruela ~25% text/nav, oro ≤5% accents only) and `css/base.css`/`css/componentes.css` hold layout/typography and component styles respectively.
-- **Images are placeholders.** `img/placeholder-*.svg` files stand in for real photography (portrait, blog post images) and are referenced by `src` in `sobre-mi.html` and blog articles — swapping them means updating the `src` (and `alt`) attribute, not the SVGs themselves.
-- **Newsletter forms are non-functional placeholders.** The `<form>` markup in `partials/newsletter.html` and `partials/footer.html` doesn't submit anywhere yet; it's meant to be replaced with an embed snippet from whatever newsletter provider (e.g. MailerLite) is eventually chosen.
+- **App Router pages** live in `app/`: `page.tsx` (inicio), `servicios/page.tsx`, `sobre-mi/page.tsx`, `blog/page.tsx` (+ per-article routes), `privacidad/page.tsx`, and `layout.tsx` (shared shell: Header, Footer, Newsletter, fonts). Copy for each page lives directly in its `page.tsx` or in the `components/*.tsx` it uses.
+- **Shared UI** lives in `components/` (Header, Footer, Newsletter, cards, buttons, etc.), all React/TSX.
+- **Single config file drives contact info site-wide.** [lib/site-config.ts](lib/site-config.ts) holds WhatsApp number, Instagram URL, and email — update it there and it propagates through header, footer, and "agendar hora" buttons automatically.
+- **Newsletter/astrology logic** is in `lib/`: `ephemeris.js` (sign calculations), `mailerlite.js` (API client), `utils.ts` (misc helpers). `data/ciudades-chile.json` powers the birth-city selector.
+- **Images are placeholders.** `public/img/placeholder-*.svg` stand in for real photography (portrait, blog images), referenced by `src` in `app/sobre-mi/page.tsx` and blog pages — swap the `src` (and `alt`) to real files, not the SVGs.
+- **Static export target.** Because `next.config.ts` sets `output: "export"`, avoid Next.js features that require a live server (dynamic SSR, image optimization API, middleware) outside of the one Vercel serverless function already in use for `/api/subscribe`.
 
 ## Frontend/design work
 
@@ -37,7 +41,7 @@ These skills are optimized for the three project focuses: site improvements, SEO
 - `/design:design-critique` - Design quality review and critique
 - `/design:accessibility-review` - WCAG compliance and accessibility checks
 - `/design:ux-copy` - Website copywriting and UX microcopy
-- `/code-review` - HTML/CSS/JS code audit
+- `/code-review` - React/TypeScript/Tailwind code audit
 - `/simplify` - Code cleanup and refactoring
 - `/verify` - Test changes in live site
 - `/run` - Launch the site locally
@@ -76,21 +80,21 @@ For full functionality, these MCP servers can be authenticated via claude.ai set
 
 ## Deployment
 
-Deployed on Vercel — project `astrologia-y-herbolaria1/astrologia-herbolaria`, linked to the `origin` remote (`github.com/franciscaginer-hash/astrologia-y-herbolaria`) for automatic deploys on push. No build command/framework preset needed (static site). Live at https://astrologia-herbolaria.vercel.app. Cloudflare Pages / GitHub Pages are no longer the deploy target.
+Deployed on Vercel — project `astrologia-y-herbolaria1/astrologia-herbolaria`, linked to the `origin` remote (`github.com/franciscaginer-hash/astrologia-y-herbolaria`) for automatic deploys on push. Vercel auto-detects the Next.js framework (`npm run build`, static export + the `api/subscribe.js` serverless function) — no manual build config needed. Requires `MAILERLITE_API_KEY` (and optionally `MAILERLITE_GROUP_ID`) set in Vercel → Settings → Environment Variables for the newsletter to work in production. Live at https://astrologia-herbolaria.vercel.app. Cloudflare Pages / GitHub Pages are no longer the deploy target.
 
 ## Vault de Obsidian
 
 Vault en `C:\Users\Fran\ObsidianVaults\astrologia-herbolaria`, con dos orígenes distintos:
 
-- `memoria-claude\` — Directory Junction (no copia) a `C:\Users\Fran\.claude\projects\C--Users-Fran-Code\memory\`, la memoria persistente de Claude Code. Editar notas ahí dentro o fuera del vault es lo mismo archivo; no requiere sincronización.
+- `memoria-claude\` — Directory Junction (no copia) a `C:\Users\Fran\.claude\projects\C--Users-Fran-Code\memory\`, la memoria persistente de Claude Code. Editar notas ahí dentro o fuera del vault.
 - `grafo-proyecto\` — vault de graphify (`graphify export obsidian --dir <ruta>`) con una nota por nodo del grafo de este repo más notas `_COMMUNITY_*.md` por comunidad.
 
-`graphify hook install` ya deja un hook de post-commit que reconstruye `graphify-out/graph.json` en cada commit. Para volver a exportar ese grafo al vault y (si hay `GEMINI_API_KEY`/`GOOGLE_API_KEY` configurada) fundir de vuelta notas que se hayan escrito a mano en `grafo-proyecto\`, correr:
+`graphify hook install` ya deja un hook de post-commit que reconstruye `graphify-out/graph.json` en cada commit. Para volver a exportar ese grafo al vault y (si hay `GEMINI_API_KEY`/`GOOGLE_API_KEY`) enriquecerlo con summaries, correr:
 
 ```
 scripts\sync-obsidian.ps1
 ```
 
-Sin esa clave, el fold-back (vault → proyecto) se omite automáticamente; el script indica entonces correr `/graphify "<ruta-grafo-proyecto>"` dentro de Claude Code, que usa subagentes en vez de una API key.
+Sin esa clave, el fold-back (vault → proyecto) se omite automáticamente; el script indica entonces correr `/graphify "<ruta-grafo-proyecto>"` dentro de Claude Code, que usa subagentes.
 
-Nota: el grafo actual (`graphify-out/`) fue construido antes de la migración a Next.js y describe la estructura HTML/CSS/JS vieja — hay que regenerarlo (`/graphify .`) contra el código actual (`app/`, `components/`, `lib/`) para que vuelva a ser útil.
+Nota: el grafo actual (`graphify-out/`) fue construido antes de la migración a Next.js y describe la estructura HTML/CSS/JS vieja — hay que regenerarlo (`/graphify .`) contra el código actual para que refleje `app/`, `components/`, `lib/`, etc.
