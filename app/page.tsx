@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Newsletter } from "@/components/newsletter";
-import { CtaWhatsapp } from "@/components/cta-whatsapp";
+import { SectionPanel } from "@/components/section-panel";
+import { LogoVideo } from "@/components/logo-video";
 import { buildWhatsappLink } from "@/lib/site-config";
 
 export default function Home() {
@@ -8,14 +9,7 @@ export default function Home() {
     <>
       {/* ============ HERO ============ */}
       <section className="contenedor py-xl pb-lg text-center">
-        <svg
-          className="mx-auto mb-sm block h-8 w-8 stroke-oro stroke-1"
-          viewBox="0 0 32 32"
-          fill="none"
-          aria-hidden="true"
-        >
-          <path d="M16 4a12 12 0 1 0 0 24 9 9 0 0 1 0-24z" />
-        </svg>
+        <LogoVideo />
         <p className="mb-sm font-titulos text-[1.4rem] text-ciruela-suave">El umbral</p>
         <h1 className="text-[2.25rem] md:text-[3.25rem]">Astrología y Herbolaria</h1>
         <p className="mx-auto mb-md max-w-[60ch] text-[1.05rem]">
@@ -60,69 +54,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ============ LAS DOS LÍNEAS ============ */}
+      {/* ============ PANEL DE SECCIONES ============ */}
       <section className="bg-champan py-lg">
         <div className="contenedor">
-          <h2>Dos líneas de trabajo</h2>
-          <div className="grid grid-cols-1 gap-md sm:grid-cols-2">
-            <div className="flex flex-col gap-xs rounded-borde border border-borde-ciruela-sutil bg-blanco p-md">
-              <h3>Línea A · Acompañamiento simbólico</h3>
-              <p>
-                Carta natal, sesiones de astrología y tarot, revolución solar y acompañamiento mensual: espacios de
-                conversación e interpretación para pensar un proceso, una pregunta o una etapa.
-              </p>
-              <div className="mt-auto pt-sm">
-                <Link
-                  href="/servicios#linea-a"
-                  className="inline-block rounded-borde border border-ciruela px-[1.6rem] py-[0.85rem] font-cuerpo text-[0.95rem] font-semibold text-ciruela no-underline transition-colors hover:border-oro hover:text-oro focus-visible:border-oro focus-visible:text-oro"
-                >
-                  Ver sesiones
-                </Link>
-              </div>
-            </div>
-            <div className="flex flex-col gap-xs rounded-borde border border-borde-ciruela-sutil bg-blanco p-md">
-              <h3>Línea B · Práctica ritual</h3>
-              <p>
-                Diagnóstico, limpiezas, amuletos, rituales y preparaciones artesanales, entendidos como saber
-                heredado — no como sustituto de atención clínica ni como práctica de riesgo.
-              </p>
-              <div className="mt-auto pt-sm">
-                <Link
-                  href="/servicios#linea-b"
-                  className="inline-block rounded-borde border border-ciruela px-[1.6rem] py-[0.85rem] font-cuerpo text-[0.95rem] font-semibold text-ciruela no-underline transition-colors hover:border-oro hover:text-oro focus-visible:border-oro focus-visible:text-oro"
-                >
-                  Ver práctica ritual
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ============ PARA QUIÉN ES ============ */}
-      <section className="bg-rosa-palido py-lg">
-        <div className="contenedor">
-          <h2>Para quién es este espacio</h2>
-          <p className="max-w-[65ch]">
-            Este acompañamiento suele resonar en mujeres entre 25 y 45 años que atraviesan una búsqueda de sentido:
-            curiosidad por lo espiritual sin querer entregarle certezas absolutas, procesos de desarrollo personal,
-            o momentos donde conviene mirar de cerca una relación de pareja. No es necesario tener experiencia
-            previa con la astrología o el tarot para comenzar.
-          </p>
+          <h2>Explora el sitio</h2>
+          <SectionPanel />
         </div>
       </section>
 
       {/* ============ NEWSLETTER ============ */}
-      <section className="bg-champan py-lg">
+      <section className="bg-rosa-palido py-lg" id="newsletter">
         <div className="contenedor">
           <Newsletter />
-        </div>
-      </section>
-
-      {/* ============ CTA FINAL ============ */}
-      <section className="bg-rosa-palido py-lg">
-        <div className="contenedor">
-          <CtaWhatsapp />
         </div>
       </section>
     </>

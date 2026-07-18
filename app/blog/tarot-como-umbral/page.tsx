@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ArticleHeader } from "@/components/article-header";
 import { NotaCuidado } from "@/components/nota-cuidado";
 import { CtaWhatsapp } from "@/components/cta-whatsapp";
+import { formatFecha } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "El tarot como umbral, no como respuesta",
@@ -13,7 +14,7 @@ export default function ArticuloTarotComoUmbral() {
     <>
       <section className="bg-rosa-palido py-lg">
         <div className="contenedor mx-auto max-w-[68ch]">
-          <ArticleHeader fecha="5 de junio de 2026" titulo="El tarot como umbral, no como respuesta" />
+          <ArticleHeader fecha={formatFecha(new Date(2026, 5, 5))} titulo="El tarot como umbral, no como respuesta" />
 
           <p>
             Una de las preguntas más frecuentes en una primera sesión de tarot es si las cartas &ldquo;tienen

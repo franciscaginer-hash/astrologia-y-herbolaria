@@ -65,6 +65,8 @@ export function NewsletterForm({ variant = "home" }: { variant?: "home" | "foote
           id={`${idPrefix}-email`}
           name="email"
           placeholder="tu@correo.com"
+          autoComplete="email"
+          spellCheck={false}
           required
           className="rounded-borde border border-ciruela bg-blanco px-[1rem] py-[0.75rem] font-cuerpo text-base text-ciruela"
         />
@@ -77,6 +79,7 @@ export function NewsletterForm({ variant = "home" }: { variant?: "home" | "foote
             type="date"
             id={`${idPrefix}-fecha`}
             name="fecha_nacimiento"
+            autoComplete="bday"
             required
             className="rounded-borde border border-ciruela bg-blanco px-[1rem] py-[0.75rem] font-cuerpo text-base text-ciruela"
           />

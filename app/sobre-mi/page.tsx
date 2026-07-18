@@ -20,7 +20,9 @@ export default function SobreMi() {
           <img
             src="/img/placeholder-retrato.svg"
             alt="Umbral con luna creciente, motivo simbólico de la práctica — imagen de referencia, pendiente de reemplazo por fotografía real"
-            loading="lazy"
+            width={400}
+            height={500}
+            fetchPriority="high"
             className="mb-md rounded-borde"
           />
 

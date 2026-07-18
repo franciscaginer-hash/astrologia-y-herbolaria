@@ -100,7 +100,10 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-oro);
+    /* Ciruela, no oro: el oro (#B8924A) da ~2.3-2.9:1 sobre champán/rosa/blanco,
+       bajo el mínimo 3:1 de WCAG 1.4.11 para indicadores no textuales. Ciruela
+       da >6.7:1 contra los tres fondos de marca. */
+    outline: 2px solid var(--color-ciruela);
     outline-offset: 2px;
   }
 }

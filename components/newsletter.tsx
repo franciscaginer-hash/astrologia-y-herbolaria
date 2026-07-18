@@ -2,7 +2,7 @@ import { NewsletterForm } from "@/components/newsletter-form";
 
 export function Newsletter() {
   return (
-    <section className="rounded-borde bg-rosa-palido px-md py-lg text-center">
+    <section className="rounded-borde border border-borde-ciruela-sutil bg-blanco px-md py-lg text-center">
       <svg
         className="mx-auto mb-sm block h-8 w-8 stroke-oro stroke-1"
         viewBox="0 0 32 32"

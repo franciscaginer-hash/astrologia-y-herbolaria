@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ArticleHeader } from "@/components/article-header";
 import { NotaCuidado } from "@/components/nota-cuidado";
 import { CtaWhatsapp } from "@/components/cta-whatsapp";
+import { formatFecha } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "La carta natal como mapa, no como pronóstico",
@@ -13,7 +14,7 @@ export default function ArticuloAstrologiaPsicologica() {
     <>
       <section className="bg-rosa-palido py-lg">
         <div className="contenedor mx-auto max-w-[68ch]">
-          <ArticleHeader fecha="3 de julio de 2026" titulo="La carta natal como mapa, no como pronóstico" />
+          <ArticleHeader fecha={formatFecha(new Date(2026, 6, 3))} titulo="La carta natal como mapa, no como pronóstico" />
 
           <p>
             Cuando alguien pide una carta natal por primera vez, casi siempre lo hace con la misma pregunta de

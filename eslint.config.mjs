@@ -13,6 +13,14 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  {
+    // Vercel serverless functions (api/) and their CommonJS helpers (lib/*.js)
+    // intentionally use require() — they run as plain Node.js, not bundled ESM.
+    files: ["api/**/*.js", "lib/**/*.js"],
+    rules: {
+      "@typescript-eslint/no-require-imports": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;

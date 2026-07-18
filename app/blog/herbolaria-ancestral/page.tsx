@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ArticleHeader } from "@/components/article-header";
 import { NotaCuidado } from "@/components/nota-cuidado";
 import { CtaWhatsapp } from "@/components/cta-whatsapp";
+import { formatFecha } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Herbolaria como saber heredado",
@@ -14,7 +15,7 @@ export default function ArticuloHerbolariaAncestral() {
     <>
       <section className="bg-rosa-palido py-lg">
         <div className="contenedor mx-auto max-w-[68ch]">
-          <ArticleHeader fecha="20 de junio de 2026" titulo="Herbolaria como saber heredado" />
+          <ArticleHeader fecha={formatFecha(new Date(2026, 5, 20))} titulo="Herbolaria como saber heredado" />
 
           <p>
             Hay una manera de hablar de las plantas que promete resultados: tal hierba &ldquo;sirve para&rdquo;
