@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageHero } from "@/components/page-hero";
 import { ServiceCard } from "@/components/service-card";
 import { NotaCuidado } from "@/components/nota-cuidado";
 import { CtaWhatsapp } from "@/components/cta-whatsapp";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { formatCLP } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -18,6 +20,45 @@ export default function Servicios() {
         title="Servicios"
         subtitle="Cada sesión es un espacio de conversación e interpretación. Elige el formato que corresponda a tu proceso; si tienes dudas sobre cuál es el adecuado, puedes escribirme antes de reservar."
       />
+
+      {/* ============ DOS LÍNEAS DE TRABAJO (resumen) ============ */}
+      <section className="bg-champan py-lg">
+        <ScrollReveal className="contenedor">
+          <h2>Dos líneas de trabajo</h2>
+          <div className="grid grid-cols-1 gap-md sm:grid-cols-2">
+            <div className="flex flex-col gap-xs rounded-borde border border-borde-ciruela-sutil bg-blanco p-md transition-all duration-300 hover:-translate-y-1 hover:border-oro/50 hover:shadow-[0_12px_28px_-16px_rgb(62_45_92_/_0.35)]">
+              <h3>Línea A · Acompañamiento simbólico</h3>
+              <p>
+                Carta natal, sesiones de astrología y tarot, revolución solar y acompañamiento mensual: espacios de
+                conversación e interpretación para pensar un proceso, una pregunta o una etapa.
+              </p>
+              <div className="mt-auto pt-sm">
+                <Link
+                  href="#linea-a"
+                  className="inline-block rounded-borde border border-ciruela px-[1.6rem] py-[0.85rem] font-cuerpo text-[0.95rem] font-semibold text-ciruela no-underline transition-colors hover:border-oro hover:text-oro focus-visible:border-oro focus-visible:text-oro"
+                >
+                  Ver sesiones
+                </Link>
+              </div>
+            </div>
+            <div className="flex flex-col gap-xs rounded-borde border border-borde-ciruela-sutil bg-blanco p-md transition-all duration-300 hover:-translate-y-1 hover:border-oro/50 hover:shadow-[0_12px_28px_-16px_rgb(62_45_92_/_0.35)]">
+              <h3>Línea B · Práctica ritual</h3>
+              <p>
+                Diagnóstico, limpiezas, amuletos, rituales y preparaciones artesanales, entendidos como saber
+                heredado — no como sustituto de atención clínica ni como práctica de riesgo.
+              </p>
+              <div className="mt-auto pt-sm">
+                <Link
+                  href="#linea-b"
+                  className="inline-block rounded-borde border border-ciruela px-[1.6rem] py-[0.85rem] font-cuerpo text-[0.95rem] font-semibold text-ciruela no-underline transition-colors hover:border-oro hover:text-oro focus-visible:border-oro focus-visible:text-oro"
+                >
+                  Ver práctica ritual
+                </Link>
+              </div>
+            </div>
+          </div>
+        </ScrollReveal>
+      </section>
 
       <section className="contenedor pb-lg">
         <h2>Para quién es este espacio</h2>

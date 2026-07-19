@@ -2,6 +2,8 @@ import Link from "next/link";
 import { Newsletter } from "@/components/newsletter";
 import { SectionPanel } from "@/components/section-panel";
 import { LogoVideo } from "@/components/logo-video";
+import { ScrollReveal } from "@/components/scroll-reveal";
+import { MagneticButton } from "@/components/magnetic-button";
 import { buildWhatsappLink } from "@/lib/site-config";
 
 export default function Home() {
@@ -17,26 +19,22 @@ export default function Home() {
           herbolaria, para habitar el cruce entre lo cotidiano y lo ritual con rigor y calidez.
         </p>
         <div className="flex flex-col items-center gap-sm min-[480px]:flex-row min-[480px]:justify-center">
-          <a
+          <MagneticButton
             href={buildWhatsappLink("Hola, me gustaría agendar una hora.")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block rounded-borde border border-transparent bg-ciruela px-[1.6rem] py-[0.85rem] font-cuerpo text-[0.95rem] font-semibold text-champan no-underline transition-colors hover:border-oro focus-visible:border-oro"
+            variant="primario"
+            external
           >
             Agendar hora
-          </a>
-          <Link
-            href="/servicios"
-            className="inline-block rounded-borde border border-ciruela px-[1.6rem] py-[0.85rem] font-cuerpo text-[0.95rem] font-semibold text-ciruela no-underline transition-colors hover:border-oro hover:text-oro focus-visible:border-oro focus-visible:text-oro"
-          >
+          </MagneticButton>
+          <MagneticButton href="/servicios" variant="outline">
             Ver servicios
-          </Link>
+          </MagneticButton>
         </div>
       </section>
 
       {/* ============ QUÉ ES ============ */}
       <section className="bg-rosa-palido py-lg">
-        <div className="contenedor">
+        <ScrollReveal className="contenedor">
           <h2>¿Qué es Astrología y Herbolaria?</h2>
           <p className="max-w-[65ch]">
             Es un espacio donde la astrología y el tarot se trabajan como lenguajes simbólicos —mapas de imágenes
@@ -51,22 +49,22 @@ export default function Home() {
           >
             Conocer más sobre esta práctica
           </Link>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* ============ PANEL DE SECCIONES ============ */}
       <section className="bg-champan py-lg">
-        <div className="contenedor">
+        <ScrollReveal className="contenedor">
           <h2>Explora el sitio</h2>
           <SectionPanel />
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* ============ NEWSLETTER ============ */}
       <section className="bg-rosa-palido py-lg" id="newsletter">
-        <div className="contenedor">
+        <ScrollReveal className="contenedor">
           <Newsletter />
-        </div>
+        </ScrollReveal>
       </section>
     </>
   );
