@@ -5,6 +5,7 @@ import { ServiceCard } from "@/components/service-card";
 import { NotaCuidado } from "@/components/nota-cuidado";
 import { CtaWhatsapp } from "@/components/cta-whatsapp";
 import { ScrollReveal } from "@/components/scroll-reveal";
+import { SectionPanel } from "@/components/section-panel";
 import { formatCLP } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -253,7 +254,15 @@ export default function Servicios() {
         </div>
       </section>
 
+      {/* ============ PANEL DE SECCIONES ============ */}
       <section className="bg-rosa-palido py-lg">
+        <ScrollReveal className="contenedor">
+          <h2>Explora el sitio</h2>
+          <SectionPanel />
+        </ScrollReveal>
+      </section>
+
+      <section className="bg-champan py-lg">
         <div className="contenedor">
           <CtaWhatsapp />
         </div>

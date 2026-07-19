@@ -16,6 +16,9 @@ export function ScrollReveal({
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // Mounted-gate deliberado: evita divergencia SSR/cliente al usar motion en
+    // un componente que se renderiza distinto en servidor vs. navegador.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
