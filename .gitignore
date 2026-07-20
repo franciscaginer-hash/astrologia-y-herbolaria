@@ -3,4 +3,9 @@ node_modules/
 .vscode/
 graphify-out/
 .env
+.env*.local
 .vercel/
+.next/
+/out/
+next-env.d.ts
+*.tsbuildinfo

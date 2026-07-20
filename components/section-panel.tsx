@@ -18,7 +18,7 @@ const SECCIONES: SeccionPanel[] = [
     descripcion: "Quién soy, desde dónde parte esta práctica y los límites del acompañamiento.",
   },
   {
-    href: "#newsletter",
+    href: "/#newsletter",
     titulo: "El cielo del mes",
     descripcion: "Suscríbete al newsletter: una lectura mensual que cruza tu carta natal con la luna llena.",
   },
